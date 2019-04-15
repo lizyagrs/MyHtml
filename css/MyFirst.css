@@ -1,0 +1,36 @@
+body{
+	max-width:980px;
+	position:relative;
+	margin: 0 auto;
+	text-align:center;
+	color:DodgerBlue;
+}
+header{
+	height:180px;
+	background:url(../img/Interent.jpg) no-repeat;
+}
+nav{
+	font-size: 25px;
+	font-weight: 500px;
+	border: dashed 1px;
+}
+#a1{
+	color:Blue;
+}
+#a2{
+	color:Orange;
+}
+#p1,#p2{
+	text-align:left;
+	font-family:Times new Roman;
+}
+h1,h2{
+	color:YellowGreen;
+}
+section{
+	text-align: center;
+}
+footer{
+	height: 60px;
+	background-color: beige;
+}

@@ -1,0 +1,20 @@
+table{
+	width: 980px;
+	background-image: url(../img/b5.jpg);
+	text-align: center;
+}
+#main{
+	width: 980px;
+}
+#runpicture{
+	height: 600px;
+	background-image: url(../img/b2.jpg);
+}
+#scorestandard,#computeDemo,#echartsTest{
+	border: dashed 1px;
+}
+#echartsTest{
+	width: 980px;
+	height:400px; 
+	align-items: center;
+}

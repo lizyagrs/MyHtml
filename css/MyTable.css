@@ -1,0 +1,13 @@
+table,th,tr,td{
+	border: 1px dashed #000;
+	border-collapse: collapse;
+}
+thead{
+	color: brown;
+}
+tbody{
+	color: blue;
+}
+tfoot{
+	color: green;
+}

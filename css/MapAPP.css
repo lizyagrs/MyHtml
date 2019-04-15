@@ -1,0 +1,8 @@
+table,tr,td{
+	border: dashed 1px;
+	border-collapse:collapse;
+	cellspacing="0"
+}
+caption{
+	color: yellowgreen;
+}

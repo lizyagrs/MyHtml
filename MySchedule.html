@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<!-- CSS文件夹下的stylesheet.css样式文件关联 -->
+		<link rel="stylesheet" type="text/css" href="css/MyFirst.css" />
+		<!-- CSS文件夹下的schedulestyle.css样式文件关联 -->
+		<link rel="stylesheet" type="text/css" href="css/schedulestyle.css" />
+		<!-- JS文件夹下的MySchedule.js文件关联 -->
+		<script type="text/javascript" src="js/MySchedule.js"></script>
+		<!-- ECharts在线文件引入 -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.2.1/echarts.min.js"></script>
+		<title></title>
+	</head>
+	<body>
+		<header>
+		</header>
+		<!-- 这里是网页导航条 -->
+		<nav>
+			<a href="MyFirstHtml.html">首页</a>
+			<a href="MyTable.html">春暧花开</a>
+			<a href="MySchedule.html">时间表</a>
+			<a href="https://en.wikipedia.org/wiki/Tim_Berners-Lee" target="_blank">Tim_Berners-Lee</a>
+			<a href="http://www.runoob.com/" target="_blank">菜鸟教程</a>
+			<a href="https://getbootstrap.com/" target="_blank">Bootstrap</a>
+			<a href="http://naotu.baidu.com/" target="_blank">百度脑图</a>
+			<a href="https://map.baidu.com/" target="_blank">百度地图</a>
+		</nav>
+		<section id="content">
+			<article>
+				<p >
+				</p>
+				<p>
+				<table border="1" cellspacing="0" cellpadding="0">
+					<tr><th>时间</th><th>星期一</th><th>星期二</th><th>星期三</th><th>星期四</th><th>星期五</th><th>星期六</th><th>星期日</th></tr>
+					<tr><td>06:00-07:00</td><td colspan="7">起床、早餐</td></tr>
+					<tr><td>07:00-08:00</td><td>Data</td><td>Data</td><td>Data</td><td>Data</td><td>Data</td><td>Data</td><td>Data</td></tr>
+					<tr><td>08:00-09:00</td><td rowspan="2">高等数学</td><td>Data</td><td>Data</td><td>Data</td><td>Data</td><td>Data</td><td>Data</td></tr>
+					<tr><td>09:00-10:00</td><td>Data</td><td>Data</td><td>Data</td><td>Data</td><td>Play</td><td>Data</td></tr>
+					<tr><td>10:00-11:00</td><td>Data</td><td>Data</td><td>Data</td><td>Data</td><td>Data</td><td>Data</td><td>Data</td></tr>
+					<tr><td>11:00-12:00</td><td>Data</td><td>Data</td><td>Data</td><td>Data</td><td>Data</td><td>Data</td><td>Data</td></tr>
+					<tr><td>12:00-13:00</td><td>Data</td><td>Data</td><td>Data</td><td>Data</td><td>Data</td><td>Data</td><td>Data</td></tr>
+					<tr><td>13:00-14:00</td><td>Data</td><td>Data</td><td>Data</td><td>Data</td><td>Data</td><td>Data</td><td>Data</td></tr>
+					<tr><td>14:00-15:00</td><td>Data</td><td>Data</td><td rowspan="3">学院大会</br>体育活动</td><td>Data</td><td>Data</td><td>Data</td><td>Data</td></tr>
+					<tr><td>15:00-16:00</td><td>Data</td><td>Data</td><td>Data</td><td>Data</td><td>Data</td>Data</td><td>Data</td></tr>
+					<tr><td>16:00-17:00</td><td>Data</td><td>Data</td><td>Data</td><td>Data</td><td>Data</td><td>Data</td></tr>
+					<tr><td>17:00-18:00</td><td colspan="7" rowspan="2">休闲、放松、晚餐、散步</td></tr>
+					<tr><td>18:00-19:00</td></tr>
+					<tr><td>19:00-20:00</td><td>Data</td><td>Data</td><td>Data</td><td>Data</td><td>Data</td>Data</td><td>Data</td><td>Data</td></tr>
+					<tr><td>20:00-21:00</td><td>Data</td><td>Data</td><td>Data</td><td>Data</td><td>Data</td><td>Data</td><td>Data</td></tr>
+					<tr><td>21:00-22:00</td><td>Data</td><td>Data</td><td>Data</td><td>Data</td><td>Data</td><td>Data</td><td>Data</td></tr>
+					<tr><td>22:00-23:00</td><td>Data</td><td>Data</td><td>Data</td><td>Data</td><td>Data</td><td>Data</td><td>Data</td></tr>
+					<tr><td>23:00</td><td>Data</td><td>Data</td><td>Data</td><td>Data</td><td>Data</td><td>Data</td><td>Data</td></tr>
+				</table>
+			</p>
+			<p id="computeDemo">
+					请输入数字： <input type="number" id="txt_a" value="" />
+				    <!--描述：定义下拉列表的选项-->
+				    <select name="选择运算符" id="ComputeType">
+				     	<option value="add">+</option>
+				     	<option value="minus">-</option>
+				     	<option value="multiply">*</option>
+				     	<option value="divide">/</option>
+				    </select>
+				    <!--描述：这是文本控件的例子-->
+				    <input type="number" id="txt_b" value="" />
+				    =
+				    <!--描述：这是文本控件的例子-->
+				    <input type="number" id="txt_c" value="" />
+				    <!--描述：这是按钮控件的例子-->
+					<input type="button" id="btn_compute" value="点我进行计算" onclick="compute()"/>
+					<input type="button" id="btn_loadEcharts" value="加载柱状图" onclick="loadEcharts()"/>
+				</p>
+				
+				<p id="echartsTest">
+				
+				</p>
+			</article>		
+		</section>
+	</body>
+	<hr/>
+	<footer>
+		Copyright: Hubei University
+	</footer>
+</html>
