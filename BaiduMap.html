@@ -8,7 +8,8 @@
 		<link rel="stylesheet" type="text/css" href="css/BaiduMap.css" />
 		<!-- 百度地图API的在线引用-->
 		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=18NwnTeKzmkoMSpsNCTkUudt"></script>
-		
+		<!-- jquery的在线引用-->
+		<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
 		<!-- 百度地图样式列表的在线引用-->
 		<script type="text/javascript" src="http://lbsyun.baidu.com/custom/stylelist.js"></script>
 		<!-- JS文件夹下的BaiduMap.js文件关联 -->
@@ -31,12 +32,22 @@
 			<a href="https://map.baidu.com/" target="_blank">百度地图</a>
 		</nav>
 		<section >
-			<!-- 百度地图样式列表的下拉菜单-->
-			<div class="optionpanel">
-				<label>选择主题</label>
-				<select id="stylelist" onchange="changeMapStyle(this.value)"></select>
-			</div>
+			<fieldset>
+				<legend align="center">主题 与交通路线查询</legend>
+				<article id="querycontent">
+					<label>选择主题</label>
+					<select id="stylelist" onchange="changeMapStyle(this.value)"></select>
+					起点:<input type="text" id="tex_a" value="" />
+					终点:<input type="text" id="tex_b" value="" />
+					<input type="button" id="btn_WalkRouteQuery" value="步行规划" onclick="WalkRouteQuery()"/>
+					<input type="button" id="btn_Driving" value="驾车路线" onclick="DrivingQuery()"/>
+					<input type="button" id="btn_Bus" value="公交路线" onclick="BusQuery()"/>
+				</article>
+				<div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
+			</fieldset>
 			<article id="baidumap"></article>
+			<div id="r-result">
+			
 		</section>
 	</body>
 	<hr/>
