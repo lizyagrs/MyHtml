@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<!-- CSS文件夹下的MyFirst.css样式文件关联，导航以及抬头样式的共用 -->
+		<link rel="stylesheet" type="text/css" href="css/MyFirst.css" />
+		<!-- CSS文件夹下的BaiduMap.css样式文件关联 -->
+		<link rel="stylesheet" type="text/css" href="css/BaiduMap.css" />
+		<!-- 百度地图API的在线引用-->
+		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=18NwnTeKzmkoMSpsNCTkUudt"></script>
+		
+		<!-- 百度地图样式列表的在线引用-->
+		<script type="text/javascript" src="http://lbsyun.baidu.com/custom/stylelist.js"></script>
+		<!-- JS文件夹下的BaiduMap.js文件关联 -->
+		<script type="text/javascript" src="js/BaiduMap.js"></script>
+		
+		<title></title>
+	</head>
+	<body onload="init()">
+		<header>
+		</header>
+		<nav>
+			<a href="MyFirstHtml.html">首页</a>
+			<a href="MyTable.html">春暧花开</a>
+			<a href="MySchedule.html">时间表</a>
+			<a href="BaiduMap.html">百度地图API</a>
+			<a href="http://www.w3school.com.cn/" target="_blank">W3School</a>
+			<a href="http://www.runoob.com/" target="_blank">菜鸟教程</a>
+			<a href="https://getbootstrap.com/" target="_blank">Bootstrap</a>
+			<a href="http://naotu.baidu.com/" target="_blank">百度脑图</a>
+			<a href="https://map.baidu.com/" target="_blank">百度地图</a>
+		</nav>
+		<section >
+			<!-- 百度地图样式列表的下拉菜单-->
+			<div class="optionpanel">
+				<label>选择主题</label>
+				<select id="stylelist" onchange="changeMapStyle(this.value)"></select>
+			</div>
+			<article id="baidumap"></article>
+		</section>
+	</body>
+	<hr/>
+	<footer>
+		Copyright: Hubei University
+	</footer>
+</html>
