@@ -45,9 +45,6 @@ function init(){
 		sel.options.add(item);
 	}
 	
-	changeMapStyle('grassgreen')
-	sel.value = 'grassgreen';
-	
 	//---------------------------------------------------------------------
 	//--------------------输入框自动提示控制--------------------------
 	
