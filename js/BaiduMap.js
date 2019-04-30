@@ -7,6 +7,11 @@ function init(){
 	map.setCurrentCity("武汉");          // 设置地图显示的城市 此项是必须设置的
 	map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
 	
+	//单击获取点击的经纬度
+	map.addEventListener("click",function(e){
+		alert(e.point.lng + "," + e.point.lat);
+	});
+	
 	// -----------------------添加带有定位的导航控件-----------------------------------
     var navigationControl = new BMap.NavigationControl({
 	    // 靠左上角位置
@@ -180,4 +185,194 @@ function BusQuery(){
     var transit = new BMap.TransitRoute(map, {renderOptions: {map: map, panel: "r-result", autoViewport: true}});
 	//调用公交查询的函数，显示结果
     transit.search(a, b);
+}
+
+//-------------------------------------------------------------------------------------------
+
+//添加小学
+function addPrimary(){
+	//清除地图覆盖物
+	map.clearOverlays();
+	//创建添加的标记点
+	var point = new BMap.Point(111.65, 40.82);
+	//定位地图中心到标记点
+	map.centerAndZoom(point, 18);
+	//调用标记点函数进行标记
+	var marker = new BMap.Marker(point);
+	//添加覆盖物标记点
+  	map.addOverlay(marker);
+	//设置标签显示内容与大小
+	var label = new BMap.Label("这是我的小学",{offset:new BMap.Size(20,-10)});
+	//添加标签到地图人标记点上
+	marker.setLabel(label);
+}
+
+//添加初中
+function addJuniormiddle(){
+	//清除地图覆盖物
+	map.clearOverlays();
+	//创建添加的标记点
+	var point = new BMap.Point(106.71, 26.57);
+	//定位地图中心到标记点
+	map.centerAndZoom(point, 18);
+	//调用标记点函数进行标记
+	var marker = new BMap.Marker(point);
+	//添加覆盖物标记点
+  	map.addOverlay(marker);
+	//设置标签显示内容与大小
+	var label = new BMap.Label("这是我的初中",{offset:new BMap.Size(20,-10)});
+	//添加标签到地图人标记点上
+	marker.setLabel(label);
+}
+
+//添加高中
+function addSeniormiddle(){
+	//清除地图覆盖物
+	map.clearOverlays();
+	//创建添加的标记点
+	var point = new BMap.Point(116.46,39.92);
+	//定位地图中心到标记点
+	map.centerAndZoom(point, 18);
+	//调用标记点函数进行标记
+	var marker = new BMap.Marker(point);
+	//添加覆盖物标记点
+    map.addOverlay(marker);
+	//跳动的动画
+    marker.setAnimation(BMAP_ANIMATION_BOUNCE); 
+	//设置标签显示内容与大小
+	var label = new BMap.Label("这是我的高中",{offset:new BMap.Size(20,-10)});
+	//添加标签到地图人标记点上
+	marker.setLabel(label);
+}
+    
+//添加大学
+function addUniversity(){
+	//清除地图覆盖物
+	map.clearOverlays();
+	//创建添加的标记点
+	var point = new BMap.Point(114.340553,30.582753);
+	//定位地图中心到标记点
+	map.centerAndZoom(point, 18);
+	//创建图片标记点
+	var myIcon = new BMap.Icon("http://developer.baidu.com/map/jsdemo/img/fox.gif", new BMap.Size(300,157));
+    // 创建标注
+	var marker = new BMap.Marker(point,{icon:myIcon});  
+	//添加覆盖物标记点
+    map.addOverlay(marker);
+	//设置标签显示内容与大小
+	var label = new BMap.Label("这是我的大学",{offset:new BMap.Size(20,-10)});
+	//添加标签到地图人标记点上
+	marker.setLabel(label);
+}
+
+//显示全部
+function fullscreen(){
+	//清除地图覆盖物
+	map.clearOverlays();
+	
+	//定义信息点坐标集合
+	var data_info = [[111.65, 40.82,"我的小学"],
+					 [106.71, 26.57,"我的初中"],
+					 [116.46,39.92,"我的高中"],
+					 [114.340553,30.582753,"我的大学"]];		
+	//遍历每个点的经纬度
+	//data_info[i][0]，每一个坐标点的第一列，即经度
+	//data_info[i][1]，每一个坐标点的第二列，即纬度
+	for (var i = 0; i < data_info.length; i ++) {
+		var point = new BMap.Point(data_info[i][0],data_info[i][1]);
+		//调用添加标注点函数，逐个添加标记点
+		var marker = new BMap.Marker(point);
+		map.addOverlay(marker);
+		//获取标签显示内容
+		var content = data_info[i][2];
+		//逐个显示标签内容
+		var label = new BMap.Label(content,{offset:new BMap.Size(20,-10)});
+		//标记标签
+		marker.setLabel(label);
+	}
+	//定义地图的中心点，在中国的中心，西安附近
+	var point = new BMap.Point(108.95,34.27);
+	//显示中心与地图级别，为了能够看到全国范围
+	map.centerAndZoom(point, 5);
+}
+
+//拆线带箭头-------------------------------------------------------------------------
+function loadpolyline(){
+	//清除地图覆盖物
+	//map.clearOverlays();
+	var sy = new BMap.Symbol(BMap_Symbol_SHAPE_BACKWARD_OPEN_ARROW, {
+		scale: 0.6,//图标缩放大小
+		strokeColor:'#fff',//设置矢量图标的线填充颜色
+		strokeWeight: '2',//设置线宽
+	});
+	var icons = new BMap.IconSequence(sy, '10', '30');
+	// 创建polyline对象
+	var pois = [
+		new BMap.Point(111.65, 40.82),
+		new BMap.Point(106.71, 26.57),
+		new BMap.Point(116.46,39.92),
+		new BMap.Point(114.340553,30.582753)
+	];
+	var polyline =new BMap.Polyline(pois, {
+	   enableEditing: false,//是否启用线编辑，默认为false
+	   enableClicking: true,//是否响应点击事件，默认为true
+	   icons:[icons],
+	   strokeWeight:'8',//折线的宽度，以像素为单位
+	   strokeOpacity: 0.8,//折线的透明度，取值范围0 - 1
+	   strokeColor:"#18a45b" //折线颜色
+	});
+	map.addOverlay(polyline);//增加折线
+}
+
+//--可编辑的弧线-------------------------------------------------------------------------
+function loadcurve(){
+	//清除地图覆盖物
+	//map.clearOverlays();
+	//定义四点坐标
+	var Primary=new BMap.Point(111.65, 40.82),//小学
+		Junior=new BMap.Point(106.71, 26.57),//初中
+		Senior=new BMap.Point(116.46,39.92),//高中
+		University=new BMap.Point(114.340553,30.582753);//大学
+	var points = [Primary,Junior,Senior,University];//构建弧线点集合
+	//创建弧线对象，由四个学校的点构成，线的特征
+	var curve = new BMapLib.CurveLine(points, {strokeColor:"blue", strokeWeight:3, strokeOpacity:0.5});
+	//添加到地图中
+	map.addOverlay(curve); 
+	//开启编辑功能
+	curve.enableEditing();
+}
+
+//--考研去向------------------
+function postgraduate(){
+	//显示中心与地图级别，为了能够看到全国范围
+	map.centerAndZoom(new BMap.Point(114.353622,30.56486), 6);
+	//清除地图覆盖物
+	map.clearOverlays();
+	//-----------------------------北京师范大学--------------------------------------------
+	var bn = [
+		new BMap.Point(114.340553,30.582753),//湖北大学
+		new BMap.Point(116.372141,39.967345)//北京师范大学
+	];
+	//创建弧线对象
+	var curve1 = new BMapLib.CurveLine(bn, {strokeColor:"green", strokeWeight:3, strokeOpacity:0.5});
+	//添加到地图中
+	map.addOverlay(curve1);
+	//-----------------------------南京大学--------------------------------------------
+	var NU = [
+		new BMap.Point(114.340553,30.582753),//湖北大学
+		new BMap.Point(118.964891,32.125421)//南京大学
+	];
+	//创建弧线对象
+	var curve2 = new BMapLib.CurveLine(NU, {strokeColor:"red", strokeWeight:3, strokeOpacity:0.5});
+	//添加到地图中
+	map.addOverlay(curve2);
+	//-----------------------------中山大学--------------------------------------------
+	var ZU = [
+		new BMap.Point(114.340553,30.582753),//湖北大学
+		new BMap.Point(113.352323,23.15146)//中山大学
+	];
+	//创建弧线对象
+	var curve3 = new BMapLib.CurveLine(ZU, {strokeColor:"blue", strokeWeight:3, strokeOpacity:0.5});
+	//添加到地图中
+	map.addOverlay(curve3);
 }

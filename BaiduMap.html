@@ -12,6 +12,8 @@
 		<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
 		<!-- 百度地图样式列表的在线引用-->
 		<script type="text/javascript" src="http://lbsyun.baidu.com/custom/stylelist.js"></script>
+		<!-- 百度地图弧线的在线引用-->
+		<script type="text/javascript" src="http://api.map.baidu.com/library/CurveLine/1.5/src/CurveLine.min.js"></script>
 		<!-- JS文件夹下的BaiduMap.js文件关联 -->
 		<script type="text/javascript" src="js/BaiduMap.js"></script>
 		
@@ -45,6 +47,20 @@
 					<input type="button" id="btn_Bus" value="公交路线" onclick="BusQuery()"/>
 				</article>
 			</fieldset>
+			<fieldset>
+				<legend align="center">添加覆盖物</legend>
+				<article id="addsomemarker">
+					<input type="button" id="btn_primary" value="小学" onclick="addPrimary()"/>
+					<input type="button" id="btn_junior" value="初中" onclick="addJuniormiddle()"/>
+					<input type="button" id="btn_high" value="高中" onclick="addSeniormiddle()"/>
+					<input type="button" id="btn_university" value="大学" onclick="addUniversity()"/>
+					<input type="button" id="btn_fullscreen" value="显示全部" onclick="fullscreen()"/>
+					<input type="button" id="btn_loadpolyline" value="加载箭头线" onclick="loadpolyline()"/>
+					<input type="button" id="btn_loadcurve" value="加载弧线" onclick="loadcurve()"/>
+					<input type="button" id="btn_postgraduate" value="考研去向" onclick="postgraduate()"/>
+				</article>
+			</fieldset>
+			
 			<article id="baidumap"></article>
 			<div id="r-result">
 			
