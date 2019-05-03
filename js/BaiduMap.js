@@ -402,6 +402,10 @@ function loadcurve(){
 	map.addOverlay(curve); 
 	//开启编辑功能
 	curve.enableEditing();
+	//玛丽奥
+	MarioRun(Primary,Junior);
+	//路书
+	lushurun(Senior,University);
 }
 
 //--毕业去向------------------
@@ -454,6 +458,10 @@ function postgraduate(){
 		var curve = new BMapLib.CurveLine(npoints, {strokeColor:color, strokeWeight:3, strokeOpacity:0.5});
 		//添加到地图中
 		map.addOverlay(curve);
+		
+		//调用路书
+		lushurun(hbpoint,point);
+		
 		//获取标签显示内容，第i+1行，第2列
 		var content = data_info[i][2];
 		//------------点击监听函数-------------------------------------------
@@ -479,4 +487,85 @@ function postgraduate(){
 		var infoWindow = new BMap.InfoWindow(content,opts);  // 创建信息窗口对象 
 		map.openInfoWindow(infoWindow,point); //开启信息窗口
 	}
+}
+
+//添加路书按钮的点击事件
+function loadlushu(){
+	//清除地图覆盖物
+	map.clearOverlays();
+	var start=new BMap.Point(114.353622,30.56486);
+	var end=new BMap.Point(116.308102,40.056057);
+	MarioRun(start,end);
+	lushurun(start,end);
+}
+
+//玛丽奥函数
+function MarioRun(myP1,myP2){
+	var myIcon = new BMap.Icon("http://lbsyun.baidu.com/jsdemo/img/Mario.png", new BMap.Size(32, 70), {    //小车图片
+		//offset: new BMap.Size(0, -5),    //相当于CSS精灵
+		imageOffset: new BMap.Size(0, 0)    //图片的偏移量。为了是图片底部中心对准坐标点。
+	  });
+	var driving2 = new BMap.DrivingRoute(map, {renderOptions:{map: map, autoViewport: true}});    //驾车实例
+	driving2.search(myP1, myP2);    //显示一条公交线路
+
+	window.run = function (){
+		var driving = new BMap.DrivingRoute(map);    //驾车实例
+		driving.search(myP1, myP2);
+		driving.setSearchCompleteCallback(function(){
+			var pts = driving.getResults().getPlan(0).getRoute(0).getPath();    //通过驾车实例，获得一系列点的数组
+			var paths = pts.length;    //获得有几个点
+
+			var carMk = new BMap.Marker(pts[0],{icon:myIcon});
+			map.addOverlay(carMk);
+			i=0;
+			function resetMkPoint(i){
+				carMk.setPosition(pts[i]);
+				if(i < paths){
+					setTimeout(function(){
+						i++;
+						resetMkPoint(i);
+					},0);
+				}
+			}
+			setTimeout(function(){
+				resetMkPoint(5);
+			},0)
+
+		});
+	}
+
+	setTimeout(function(){
+		run();
+	},150);
+}
+
+//路书函数
+function lushurun(start,end){
+	var lushu;
+	// 实例化一个驾车导航用来生成路线
+    var drv = new BMap.DrivingRoute('北京', {
+        onSearchComplete: function(res) {
+            if (drv.getStatus() == BMAP_STATUS_SUCCESS) {
+                var plan = res.getPlan(0);
+                var arrPois =[];
+                for(var j=0;j<plan.getNumRoutes();j++){
+                    var route = plan.getRoute(j);
+                    arrPois= arrPois.concat(route.getPath());
+                }
+                map.addOverlay(new BMap.Polyline(arrPois, {strokeColor: '#111'}));
+                map.setViewport(arrPois);
+
+                lushu = new BMapLib.LuShu(map,arrPois,{
+					defaultContent:"",
+					autoView:true,//是否开启自动视野调整，如果开启那么路书在运动过程中会根据视野自动调整
+					icon  : new BMap.Icon('http://lbsyun.baidu.com/jsdemo/img/car.png', new BMap.Size(52,26),{anchor : new BMap.Size(27, 13)}),
+					speed: 90000,
+					enableRotation:true,//是否设置marker随着道路的走向进行旋转
+                });
+				lushu.start();
+            }
+        }
+    });
+    
+	drv.search(start, end);
 }
