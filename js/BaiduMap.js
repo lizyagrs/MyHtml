@@ -205,6 +205,28 @@ function addPrimary(){
 	var label = new BMap.Label("这是我的小学",{offset:new BMap.Size(20,-10)});
 	//添加标签到地图人标记点上
 	marker.setLabel(label);
+	
+	//定义弹出窗口显示的图文信息内容
+	var sContent ="<article style='float:left;'><p>姓名：张三；</p> <p>年级：2012；</p><p>电话：12345678912；</p></article>" + 
+	"<img style='float:right;margin:4px' id='imgDemo' src='img/b4.jpg' width='180' height='150' title='张三'/>";
+	
+	//定义信息窗口的属性，如大小
+	var opts = {
+		width : 400,     // 信息窗口宽度
+		height: 200,     // 信息窗口高度
+		title : "信息窗口" , // 信息窗口标题
+		enableMessage:true//设置允许信息窗发送短息
+	};
+	// 创建信息窗口对象
+	var infoWindow = new BMap.InfoWindow(sContent,opts);  
+	//标记点的单击监听事件
+	marker.addEventListener("click", function(){          
+	   this.openInfoWindow(infoWindow);
+	   //图片加载完毕重绘infowindow
+	   document.getElementById('imgDemo').onload = function (){
+		   infoWindow.redraw();   //防止在网速较慢，图片未加载时，生成的信息框高度比图片的总高度小，导致图片部分被隐藏
+	   }
+	});
 }
 
 //添加初中
@@ -244,6 +266,8 @@ function addSeniormiddle(){
 	//添加标签到地图人标记点上
 	marker.setLabel(label);
 }
+
+
     
 //添加大学
 function addUniversity(){
@@ -263,7 +287,45 @@ function addUniversity(){
 	var label = new BMap.Label("这是我的大学",{offset:new BMap.Size(20,-10)});
 	//添加标签到地图人标记点上
 	marker.setLabel(label);
+	
+	//-----------------------------弹出窗口部分-----------------------------------------------------
+	//定义弹出窗口显示的图文信息内容
+	var sContent = "<iframe width='450px' height='300px' frameborder='no' border='0' marginwidth='0' marginheight='0' src='Echarts01.html'/>";
+	// 创建信息窗口对象
+	var infoWindow = new BMap.InfoWindow(sContent);  
+	//标记点的单击监听事件
+	marker.addEventListener("click", function(){
+	   //弹出信息窗口
+	   this.openInfoWindow(infoWindow);
+	});
 }
+
+//湖北大学师生概况echarts图表构建函数
+function getHbuData(){
+	var myChart = echarts.init(document.getElementById('hbuEcharts'));
+	// 指定图表的配置项和数据
+	var option = {
+		title: {
+			text: '湖北大学概况'
+		},
+		tooltip: {},
+		legend: {
+			data:['数量']
+		},
+		xAxis: {
+			data: ["本科生","研究生","专任教师"]
+		},
+		yAxis: {},
+		series: [{
+			name: '数据量',
+			type: 'bar',
+			data: [12000, 5600, 1200]
+		}]
+	};
+	// 使用刚指定的配置项和数据显示图表。
+	myChart.setOption(option);
+}
+
 
 //显示全部
 function fullscreen(){
@@ -342,109 +404,79 @@ function loadcurve(){
 	curve.enableEditing();
 }
 
-//--考研去向------------------
+//--毕业去向------------------
 function postgraduate(){
 	//显示中心与地图级别，为了能够看到全国范围
-	map.centerAndZoom(new BMap.Point(114.353622,30.56486), 6);
+	map.centerAndZoom(new BMap.Point(114.353622,30.56486), 5);
 	//清除地图覆盖物
 	map.clearOverlays();
 	
-	var bnpoint = new BMap.Point(116.372141,39.967345);//北京师范大学
-	//-----------------------------北京师范大学--------------------------------------------
+	//-----------------------------------标记点数据准备--------------------------------------
 	var hbpoint = new BMap.Point(114.340553,30.582753);//湖北大学
-	var bn = [
-		hbpoint,
-		bnpoint
-	];
-	var bnmarker = new BMap.Marker(bnpoint);
-	map.addOverlay(bnmarker);
-	var sContent ="<article style='float:left;'><p>姓名：张三；</p> <p>年级：2012；</p><p>专业：地理信息科学；</p><p>电话：12345678912；</p></article>" + 
-	"<img style='float:right;margin:4px' id='imgDemo' src='img/b4.jpg' width='180' height='150' title='张三'/>";
+	//-----------------------------北京师范大学--------------------------------------------
+	var BN_point = new BMap.Point(116.372141,39.967345);//北京师范大学
+	//弹出窗口显示信息
+	var BN_sContent ="<article style='float:left;'><p>姓名：张三；</p> <p>年级：2012；</p><p>专业：地理信息科学；</p><p>电话：12345678912；</p></article>" + 
+	"<img style='float:right;margin:4px' id='imgDemo' src='img/b3.jpg' width='180' height='150' title='张三'/>";
 	
-	//信息窗口的属性，如大小
-	var opts1 = {
-		width : 400,     // 信息窗口宽度
-		height: 200,     // 信息窗口高度
-		title : "信息窗口" , // 信息窗口标题
-		enableMessage:true//设置允许信息窗发送短息
-	};
-	var infoWindow1 = new BMap.InfoWindow(sContent,opts1);  // 创建信息窗口对象
-	bnmarker.addEventListener("click", function(){          
-	   this.openInfoWindow(infoWindow1);
-	   //图片加载完毕重绘infowindow
-	   document.getElementById('imgDemo').onload = function (){
-		   infoWindow1.redraw();   //防止在网速较慢，图片未加载时，生成的信息框高度比图片的总高度小，导致图片部分被隐藏
-	   }
-	});
-	
-	//创建弧线对象
-	var curve1 = new BMapLib.CurveLine(bn, {strokeColor:"green", strokeWeight:3, strokeOpacity:0.5});
-	//添加到地图中
-	map.addOverlay(curve1);
 	//-----------------------------南京大学--------------------------------------------
-	var NUpoint = new BMap.Point(118.964891,32.125421);//南京大学
-	var NU = [
-		hbpoint,
-		NUpoint//南京大学
-	];
-		
-	var NUmarker = new BMap.Marker(NUpoint);
-	map.addOverlay(NUmarker);
-	
-	var sContent ="<article style='float:left;'><p>姓名：李四；</p> <p>年级：2012级；</p><p>专业：地理信息科学；</p><p>电话：98765678912；</p></article>" + 
+	var NU_point = new BMap.Point(118.964891,32.125421);//南京大学
+	//弹出窗口显示信息
+	var NU_sContent ="<article style='float:left;'><p>姓名：李四；</p> <p>年级：2012级；</p><p>专业：地理信息科学；</p><p>电话：98765678912；</p></article>" + 
 	"<img style='float:right;margin:4px' id='imgDemo' src='img/b5.jpg' width='180' height='150' title='张三'/>";
 	
-	//信息窗口的属性，如大小
-	var opts2 = {
-		width : 400,     // 信息窗口宽度
-		height: 200,     // 信息窗口高度
-		title : "信息窗口" , // 信息窗口标题
-		enableMessage:true//设置允许信息窗发送短息
-	};
-	var infoWindow2 = new BMap.InfoWindow(sContent,opts2);  // 创建信息窗口对象
-	NUmarker.addEventListener("click", function(){          
-	   this.openInfoWindow(infoWindow2);
-	   //图片加载完毕重绘infowindow
-	   document.getElementById('imgDemo').onload = function (){
-		   infoWindow2.redraw();   //防止在网速较慢，图片未加载时，生成的信息框高度比图片的总高度小，导致图片部分被隐藏
-	   }
-	});
-	
-	
-	
-	//创建弧线对象
-	var curve2 = new BMapLib.CurveLine(NU, {strokeColor:"red", strokeWeight:3, strokeOpacity:0.5});
-	//添加到地图中
-	map.addOverlay(curve2);
 	//-----------------------------中山大学--------------------------------------------
-	var ZUpoint = new BMap.Point(113.352323,23.15146);//中山大学
-	
-	var ZU = [
-		hbpoint,
-		ZUpoint
-	];
-	var ZUmarker = new BMap.Marker(ZUpoint);
-	map.addOverlay(ZUmarker);
-	var sContent ="<article style='float:left;'><p>姓名：王五；</p> <p>年级：2012级；</p><p>专业：地理信息科学；</p><p>电话：98765678912；</p></article>" + 
+	var ZU_point = new BMap.Point(113.352323,23.15146);//中山大学
+	//弹出窗口显示信息
+	var ZU_sContent ="<article style='float:left;'><p>姓名：王五；</p> <p>年级：2012级；</p><p>专业：地理信息科学；</p><p>电话：98765678912；</p></article>" + 
 	"<img style='float:right;margin:4px' id='imgDemo' src='img/b6.jpg' width='180' height='150' title='张三'/>";
-	
-	//信息窗口的属性，如大小
-	var opts3 = {
+		
+	//-----------------------------构建目标信息点坐标集合,数据结构如下:------------------------------------
+	//[0][0],[0][1],[0][2],-----程序中的下标从0开始，例如：[0][0]代表第一行第一列，即BN_point,以此类推
+	//[1][0],[1][1],[2][2],-----程序中的下标从0开始，例如：[1][1]代表第二行第二列，即"red",以此类推
+	//[2][0],[2][1],[2][2],-----程序中的下标从0开始，例如：[2][2]代表第三行第三列，即ZU_sContent,以此类推
+	//第一列，代表目标点的坐标，第二列，代表目标标记点弹出窗口显示的信息，第三列，代表起始点到目标标记点弧线的颜色
+	var data_info = [[BN_point,"green",BN_sContent],
+					 [NU_point,"red",NU_sContent],
+					 [ZU_point,"blue",ZU_sContent]];	
+	//--------------------遍历数据集合，逐行获取信息并加载到地图上------------------------------------------
+	for (var i = 0; i < data_info.length; i ++) {
+		//逐行获取坐标点，循环第一遍，拿到集合中第[0][0]个值，即BN_point
+		var point = data_info[i][0];
+		//调用添加标注点函数，逐个添加标记点
+		var marker = new BMap.Marker(point);
+		map.addOverlay(marker);
+		//弧线起止点集合
+		var npoints = [hbpoint,point];
+		//获取每个弧线的颜色值，第i+1行，第3列
+		var color = data_info[i][1];
+		//创建弧线对象
+		var curve = new BMapLib.CurveLine(npoints, {strokeColor:color, strokeWeight:3, strokeOpacity:0.5});
+		//添加到地图中
+		map.addOverlay(curve);
+		//获取标签显示内容，第i+1行，第2列
+		var content = data_info[i][2];
+		//------------点击监听函数-------------------------------------------
+		addClickHandler(content,marker);
+	}
+	//------------点击监听函数------------
+	function addClickHandler(content,marker){
+		marker.addEventListener("click",function(e){
+			openInfo(content,e)}
+		);
+	}
+	//------------------------------定义信息窗口的属性，如大小---------------------------
+	var opts = {
 		width : 400,     // 信息窗口宽度
 		height: 200,     // 信息窗口高度
 		title : "信息窗口" , // 信息窗口标题
 		enableMessage:true//设置允许信息窗发送短息
 	};
-	var infoWindow3 = new BMap.InfoWindow(sContent,opts3);  // 创建信息窗口对象
-	ZUmarker.addEventListener("click", function(){          
-	   this.openInfoWindow(infoWindow3);
-	   //图片加载完毕重绘infowindow
-	   document.getElementById('imgDemo').onload = function (){
-		   infoWindow3.redraw();   //防止在网速较慢，图片未加载时，生成的信息框高度比图片的总高度小，导致图片部分被隐藏
-	   }
-	});
-	//创建弧线对象
-	var curve3 = new BMapLib.CurveLine(ZU, {strokeColor:"blue", strokeWeight:3, strokeOpacity:0.5});
-	//添加到地图中
-	map.addOverlay(curve3);
+	//打开窗口信息
+	function openInfo(content,e){
+		var p = e.target;
+		var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
+		var infoWindow = new BMap.InfoWindow(content,opts);  // 创建信息窗口对象 
+		map.openInfoWindow(infoWindow,point); //开启信息窗口
+	}
 }
