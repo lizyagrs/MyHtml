@@ -1,6 +1,7 @@
 table,th,tr,td{
 	border: 1px dashed #000;
 	border-collapse: collapse;
+	width: 100%;
 }
 thead{
 	color: brown;

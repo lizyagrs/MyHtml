@@ -1,5 +1,5 @@
 body{
-	max-width:980px;
+	max-width:100%;
 	position:relative;
 	margin: 0 auto;
 	text-align:center;
@@ -9,10 +9,9 @@ header{
 	height:180px;
 	background:url(../img/Interent.jpg) no-repeat;
 }
-nav{
-	font-size: 25px;
-	font-weight: 500px;
-	border: dashed 1px;
+#navbar{
+	font-size:large; 
+	font-family: 'book antiqua';
 }
 #a1{
 	color:Blue;
