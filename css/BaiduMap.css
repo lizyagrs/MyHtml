@@ -4,8 +4,8 @@
 	/*无边界，自动调整*/
 	margin: 0 auto;
 	/*相对位置*/
-	height: 640px;
-	overflow: hidden;
+	height: 720px;
+	//overflow: hidden;
 }
 #navbar{
 	font-size:large; 
